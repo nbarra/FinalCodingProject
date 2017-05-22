@@ -2,6 +2,7 @@ package rocketServer;
 
 import java.io.IOException;
 
+import exceptions.RateException;
 import netgame.common.Hub;
 import rocketBase.RateBLL;
 import rocketData.LoanRequest;
@@ -23,6 +24,12 @@ public class RocketHub extends Hub {
 			resetOutput();
 			
 			LoanRequest lq = (LoanRequest) message;
+			try {lq.setdRate(RateBLL.getRate(lq.getiCreditScore()));
+			lq.setdPayment(RateBLL.getPVPayment(lq.getdRate()/12, lq.getiTerm()*12, lq.getdAmount()-lq.getiDownPayment(),0,false));
+			}
+			catch (RateException error){
+				System.out.println("Your Credit Score is too low.");
+			}
 			
 			//	TODO - RocketHub.messageReceived
 

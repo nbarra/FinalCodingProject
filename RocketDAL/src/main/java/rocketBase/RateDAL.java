@@ -30,6 +30,8 @@ public class RateDAL {
 			//			example can be found here:
 			//  		http://www.tutorialspoint.com/hibernate/hibernate_query_language.htm			
 			//List lstRates = session.createQuery("FROM RateDomainModel r Order By r.iMinCreditScore").list();
+			String hql = "FROM RateDomainModel rte WHERE rte.id > 10 ORDER BY rte.dinterestrate DESC";
+			Query query = session.createQuery(hql);
 			List lstRates = session.createQuery("FROM RateDomainModel").list();
 
 			for (Iterator iterator = lstRates.iterator(); iterator.hasNext();) {
